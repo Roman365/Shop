@@ -1,16 +1,22 @@
 package ua.entity;
 
+import  javax.persistence.GenerationType;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Sub_Category")
+@Table(name="sub_category")
 public class SubCategory {
-	
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String name;
@@ -18,8 +24,20 @@ public class SubCategory {
 	@OneToMany(mappedBy="subCategory")
 	private List<Product> product = new ArrayList<>();
 
-	public SubCategory() {
+	
+
+	public SubCategory(Integer id, String name, List<Product> product) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.product = product;
 	}
+	
+
+	public SubCategory() {
+		
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -45,8 +63,5 @@ public class SubCategory {
 		this.product = product;
 	}
 
-	
 
-	
-	
 }

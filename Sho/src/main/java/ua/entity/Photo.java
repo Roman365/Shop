@@ -1,9 +1,10 @@
 package ua.entity;
 
+import  javax.persistence.FetchType;
+import javax.persistence.GenerationType;
+
 import javax.persistence.Entity;
-import static javax.persistence.FetchType.*;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.*;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -11,19 +12,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name="photo_entity")
 public class Photo {
-	
+
 	@Id
-	@GeneratedValue(strategy=IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String photoUrl;
 	
-	@ManyToOne(fetch=LAZY)
+	private Integer version;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Product product;
 	
 	
 
-	public Photo() {
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Integer getId() {
@@ -42,15 +50,11 @@ public class Photo {
 		this.photoUrl = photoUrl;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Integer getVersion() {
+		return version;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
-
-	
-	
-
 }

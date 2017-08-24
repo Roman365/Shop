@@ -1,22 +1,24 @@
 package ua.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.*;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order")
+@Table(name="order_table")
 
 public class Order {
 	
 	
 	@Id
-	@GeneratedValue(strategy=IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	private double  sum;
@@ -32,13 +34,17 @@ public class Order {
 	private String typeDelivery;
 	
 	private String typePay;
+	
+	@OneToMany(mappedBy = "order")
+	private List<ProductInOrder> productInOrders;
 
 	@ManyToOne
 	private UserEntity userEntity;
 
 	
+
 	public Order(Integer id, double sum, double discount, Date date, String city, String address, String typeDelivery,
-			String typePay) {
+			String typePay, List<ProductInOrder> productInOrders, UserEntity userEntity) {
 		super();
 		this.id = id;
 		this.sum = sum;
@@ -48,6 +54,8 @@ public class Order {
 		this.address = address;
 		this.typeDelivery = typeDelivery;
 		this.typePay = typePay;
+		this.productInOrders = productInOrders;
+		this.userEntity = userEntity;
 	}
 
 	public Order() {
@@ -118,8 +126,24 @@ public class Order {
 		this.typePay = typePay;
 	}
 
+	public List<ProductInOrder> getProductInOrders() {
+		return productInOrders;
+	}
+
+	public void setProductInOrders(List<ProductInOrder> productInOrders) {
+		this.productInOrders = productInOrders;
+	}
+
+	public UserEntity getUserEntity() {
+		return userEntity;
+	}
+
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
 
 
+ 
 
 
 }
